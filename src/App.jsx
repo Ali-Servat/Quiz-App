@@ -1,6 +1,8 @@
-import { useState } from 'react';
+import configureParse from './services/parseConfig';
 
 function App() {
+     configureParse();
+
      return <div>app</div>;
 }
 
