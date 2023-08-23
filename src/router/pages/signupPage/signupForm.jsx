@@ -3,6 +3,8 @@ import { Link as RouterLink } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
 import { Button, Typography, Link } from '@mui/material';
 import { signupUser } from '../../../services/userService';
+import { useDispatch, useSelector } from 'react-redux';
+import { userLoggedIn } from '../../../store/slices/authSlice';
 import TextField from '../../../components/ui/textField';
 
 const SignupForm = () => {
@@ -13,6 +15,9 @@ const SignupForm = () => {
      });
      const [errors, setErrors] = useState(null);
 
+     const dispatch = useDispatch();
+     const user = useSelector((state) => state.auth);
+
      const handleChange = (e) => {
           const name = e.target.name;
           setAccount({ ...account, [name]: e.target.value });
@@ -21,11 +26,14 @@ const SignupForm = () => {
      const handleSubmit = async (e) => {
           e.preventDefault();
 
-          const user = await signupUser(
-               account.username,
-               account.password,
-               account.email
-          );
+          if (!user) {
+               const user = await signupUser(
+                    account.username,
+                    account.password,
+                    account.email
+               );
+               dispatch(userLoggedIn(user));
+          }
      };
 
      return (

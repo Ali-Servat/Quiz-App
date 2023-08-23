@@ -1,10 +1,6 @@
 import Parse from 'parse/dist/parse.min.js';
 
 export async function signupUser(username, password, email) {
-     var currentUser = Parse.User.current();
-     if (currentUser) {
-          Parse.User.logOut();
-     }
      const newUser = new Parse.User();
      newUser.setUsername(username);
      newUser.setEmail(email);
@@ -27,4 +23,13 @@ export async function loginUser(username, password) {
           console.log(`Error! ${error}`);
           return null;
      }
+}
+
+export function checkCurrentUser() {
+     const currentUser = Parse.User.current();
+     return currentUser ? currentUser.toJSON() : null;
+}
+
+export function logout() {
+     Parse.User.logOut();
 }

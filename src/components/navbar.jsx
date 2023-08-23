@@ -1,7 +1,11 @@
-import { AppBar, List, ListItem, Menu, Stack, Toolbar } from '@mui/material';
+import { AppBar, ListItem, Stack, Toolbar } from '@mui/material';
+import { useSelector } from 'react-redux';
 import NavLink from './ui/navLink';
+import Avatar from './avatar';
 
 const Navbar = () => {
+     const user = useSelector((state) => state.auth);
+
      return (
           <AppBar position="absolute">
                <Toolbar
@@ -14,15 +18,23 @@ const Navbar = () => {
                          </ListItem>
                     </Stack>
                     <Stack direction="row">
-                         <ListItem sx={{ flexGrow: 1 }}> profile</ListItem>
-                         <ListItem sx={{ flexGrow: 1 }}>
-                              {' '}
-                              <NavLink to="/signup">عضویت</NavLink>
-                         </ListItem>
-                         <ListItem>
-                              {' '}
-                              <NavLink to="/login">ورود</NavLink>
-                         </ListItem>
+                         {user ? (
+                              <ListItem sx={{ flexGrow: 1 }}>
+                                   {' '}
+                                   <Avatar />
+                              </ListItem>
+                         ) : (
+                              <>
+                                   <ListItem sx={{ flexGrow: 1 }}>
+                                        {' '}
+                                        <NavLink to="/signup">عضویت</NavLink>
+                                   </ListItem>
+                                   <ListItem>
+                                        {' '}
+                                        <NavLink to="/login">ورود</NavLink>
+                                   </ListItem>
+                              </>
+                         )}
                     </Stack>
                </Toolbar>
           </AppBar>
