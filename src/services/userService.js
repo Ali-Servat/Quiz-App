@@ -11,10 +11,20 @@ export async function signupUser(username, password, email) {
      newUser.setPassword(password);
 
      try {
-          const createdUser = await newUser.signUp();
-          return createdUser.toJSON();
+          await newUser.signUp();
+          return Parse.User.current().toJSON();
      } catch (error) {
           console.log(`Error! ${error}`);
           return {};
+     }
+}
+
+export async function loginUser(username, password) {
+     try {
+          await Parse.User.logIn(username, password);
+          return Parse.User.current().toJSON();
+     } catch (error) {
+          console.log(`Error! ${error}`);
+          return null;
      }
 }
