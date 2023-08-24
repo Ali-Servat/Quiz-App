@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
 import { Button, Typography, Link } from '@mui/material';
 import { loginUser } from '../../../services/userService';
@@ -15,6 +15,7 @@ const LoginForm = () => {
      const [errors, setErrors] = useState(null);
 
      const dispatch = useDispatch();
+     const navigate = useNavigate();
      const user = useSelector((state) => state.auth);
 
      const handleChange = (e) => {
@@ -28,6 +29,8 @@ const LoginForm = () => {
           if (!user) {
                const user = await loginUser(account.username, account.password);
                dispatch(userLoggedIn(user));
+
+               navigate('/index');
           }
      };
 

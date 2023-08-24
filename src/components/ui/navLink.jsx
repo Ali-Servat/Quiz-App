@@ -5,11 +5,15 @@ const NavLink = ({ to, children }) => {
      const theme = useTheme();
 
      return (
-          <RouterNavLink to={to}>
+          <RouterNavLink
+               to={to}
+               style={{ textWrap: 'noWrap', textDecoration: 'none' }}
+          >
                <MuiLink
-                    variant="h5"
+                    variant="h6"
                     component="span"
                     color={theme.palette.primary.contrastText}
+                    underline="hover"
                >
                     {children}
                </MuiLink>

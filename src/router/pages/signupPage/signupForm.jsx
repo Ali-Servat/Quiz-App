@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
 import { Button, Typography, Link } from '@mui/material';
 import { signupUser } from '../../../services/userService';
@@ -16,6 +16,8 @@ const SignupForm = () => {
      const [errors, setErrors] = useState(null);
 
      const dispatch = useDispatch();
+     const navigate = useNavigate();
+
      const user = useSelector((state) => state.auth);
 
      const handleChange = (e) => {
@@ -34,6 +36,8 @@ const SignupForm = () => {
                );
                dispatch(userLoggedIn(user));
           }
+
+          navigate('/index');
      };
 
      return (

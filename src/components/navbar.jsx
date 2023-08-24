@@ -12,9 +12,15 @@ const Navbar = () => {
                     variant="regular"
                     sx={{ justifyContent: 'space-between' }}
                >
-                    <Stack>
+                    <Stack direction="row">
                          <ListItem>
-                              <NavLink>خانه</NavLink>
+                              <NavLink to="/index">صفحه نخست</NavLink>
+                         </ListItem>
+                         <ListItem>
+                              <NavLink to="/myQuizzes"> آزمون های من</NavLink>
+                         </ListItem>
+                         <ListItem>
+                              <NavLink to="/attendQuiz"> شرکت در آزمون</NavLink>
                          </ListItem>
                     </Stack>
                     <Stack direction="row">

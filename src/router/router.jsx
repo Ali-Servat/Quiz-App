@@ -5,23 +5,37 @@ import {
 } from 'react-router-dom';
 import { lazy, Suspense } from 'react';
 import App from '../App';
-import LoginPage from './pages/loginPage';
-const SignupPage = lazy(() => import('./pages/signupPage/signupPage'));
+import LoadingPage from './pages/loadingPage';
+import IndexPage from './pages/indexPage';
+const myQuizzesPage = lazy(() => import('./pages/myQuizzesPage'));
+const attendQuizPage = lazy(() => import('./pages/attendQuizPage'));
+const SignupPage = lazy(() => import('./pages/signupPage'));
+const LoginPage = lazy(() => import('./pages/loginPage'));
 
 const router = createBrowserRouter(
      createRoutesFromElements(
           <Route path="/" element={<App />}>
+               <Route path="/index" index element={<IndexPage />} />
                <Route
-                    path="/signup"
-                    element={
-                         <Suspense fallback={<div>loading...</div>}>
-                              <SignupPage />
-                         </Suspense>
-                    }
+                    path="/myQuizzes"
+                    element={wrapInSuspense(myQuizzesPage)}
                />
-               <Route path="/login" element={<LoginPage />} />
+               <Route
+                    path="/attendQuiz"
+                    element={wrapInSuspense(attendQuizPage)}
+               />
+               <Route path="/signup" element={wrapInSuspense(SignupPage)} />
+               <Route path="/login" element={wrapInSuspense(LoginPage)} />
           </Route>
      )
 );
+
+function wrapInSuspense(ReactEl) {
+     return (
+          <Suspense fallback={<LoadingPage />}>
+               <ReactEl />
+          </Suspense>
+     );
+}
 
 export default router;
